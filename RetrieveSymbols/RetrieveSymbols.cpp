@@ -29,7 +29,7 @@ limitations under the License.
 // Uncomment this line to test with known-good parameters.
 //#define TESTING
 
-int main(int argc, _Pre_readable_size_(argc) char* argv[])
+int main(int argc, char* argv[])
 {
    // Tell dbghelp to print diagnostics to the debugger output.
    SymSetOptions(SYMOPT_DEBUG);
@@ -113,11 +113,11 @@ int main(int argc, _Pre_readable_size_(argc) char* argv[])
      std::string gText;
      // Scan the GUID argument and remove all non-hex characters. This allows
      // passing GUIDs with '-', '{', and '}' characters.
-     for (auto c : gTextArg)
+     for (std::string::iterator c = gTextArg.begin(); c != gTextArg.end(); ++c)
      {
-       if (isxdigit(static_cast<unsigned char>(c)))
+       if (isxdigit(static_cast<unsigned char>(*c)))
        {
-         gText.push_back(c);
+         gText.push_back(*c);
        }
      }
      if (gText.size() != 32)
