@@ -169,6 +169,7 @@ int main(int argc, char* argv[])
    //consistency - but better safe than owned.
    char filePath[MAX_PATH+1] = {};
    DWORD three = 0;
+   int ret = 0;
 
    if (SymFindFileInPath(fakeProcess, NULL, fileName, id, two, three,
                flags, filePath, NULL, NULL))
@@ -177,6 +178,7 @@ int main(int argc, char* argv[])
    }
    else
    {
+       ret = 1;
        printf("Error: symbols not found - error %u. Are dbghelp.dll and "
                "symsrv.dll in the same directory as this executable?\n",
                GetLastError());
@@ -190,5 +192,5 @@ int main(int argc, char* argv[])
       printf("SymCleanup failed!! Error: %u\n", ::GetLastError());
    }
 
-   return 0;
+   return ret;
 }
